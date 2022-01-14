@@ -2,7 +2,7 @@
 from django.contrib import admin
 
 # Importing DB Models
-from blog.models import Tag, Post
+from blog.models import Tag, Post, Comment
 
 # Configuring Some Models
 
@@ -16,3 +16,4 @@ class postAdmin(admin.ModelAdmin):
 
 admin.site.register(Tag)
 admin.site.register(Post, postAdmin)
+admin.site.register(Comment)
