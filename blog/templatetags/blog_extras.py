@@ -1,6 +1,7 @@
 from django import template
 from django.contrib.auth import get_user_model
 from django.utils.html import format_html
+from blog.models import Post
 
 # regestring template library
 
@@ -9,7 +10,7 @@ register = template.Library()
 # getting the user data
 user_model = get_user_model()
 
-# adding custome filter to author data
+# adding custom filter to author data
 @register.filter
 def author_details(author, current_user):
   if not isinstance(author, user_model):
@@ -34,3 +35,27 @@ def author_details(author, current_user):
     suffix = ""
 
   return format_html("{} {} {}", prefix, name, suffix)
+
+# Adding custom filter to Post data 
+@register.inclusion_tag("blog/post_list.html")
+def recent_posts(post):
+    posts = Post.objects.exclude(pk=post.pk)[:5]
+    return {"title": "Recent Posts", "posts": posts}
+
+    
+# Adding ustom template tags
+
+@register.simple_tag
+def row(extra_classes = ""):
+    return format_html('<div class="row">', extra_classes)
+
+
+@register.simple_tag
+def enddiv():
+    return format_html("</div>")
+
+@register.simple_tag
+def col(extra_classes = ""):
+    return format_html('<div class="col">', extra_classes)
+
+
