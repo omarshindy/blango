@@ -9,7 +9,6 @@ class CommentForm(forms.ModelForm):
     model = Comment
     fields = ["content"]
 
-    def __init__(self, *args, **kwargs):
-        super(CommentForm, self).__init__(*args, **kwargs)
-        self.helper = FormHelper()
-        self.helper.add_input(Submit('submit', 'Submit'))
+  helper = FormHelper()
+  helper.add_input(Submit('submit', 'Submit'))
+  helper.form_method = 'POST'
